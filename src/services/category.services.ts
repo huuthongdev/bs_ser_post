@@ -41,4 +41,12 @@ export class CategoryServices {
         return category;
     }
 
+    static async removePost(idCategory: string, idPost: string) {
+        checkObjectId(idCategory, idPost);
+        const query = { _id: idCategory, posts: { $eq: idPost } };
+        const category = await Category.findByIdAndUpdate(query, { $pull: { posts: idPost } }, { new: true });
+        if (!category) throw new MyError('CATEGORY_NOT_EXISTED', 400);
+        return category;
+    }
+
 } 

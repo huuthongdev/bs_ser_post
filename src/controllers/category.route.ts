@@ -39,3 +39,10 @@ categoryRouter.post('/addpost', (req, res: any) => {
         .catch(res.onError);
 });
 
+categoryRouter.post('/removepost', (req, res: any) => {
+    const { idPost, idCategory } = req.body;
+    CategoryServices.removePost(idCategory, idPost)
+        .then(category => res.send({ success: true, category }))
+        .catch(res.onError);
+})
+
